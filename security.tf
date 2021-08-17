@@ -25,7 +25,7 @@ resource "oci_core_security_list" "app_security_list" {
     ingress_security_rules {
     //allow all ICMP from VCN
         protocol = "1"
-        source   = "0.0.0.0/0"#var.vcn_cidr
+        source   = "0.0.0.0/0"
 
         icmp_options {
         type = "3"
