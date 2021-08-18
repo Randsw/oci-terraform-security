@@ -36,8 +36,3 @@ variable "udp_ingress_rule" {
 variable "vcn_id" {
     type = string
 }
-
-variable "vcn_cidr" {
-    type = string
-}
-

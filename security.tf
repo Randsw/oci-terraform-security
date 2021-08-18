@@ -21,17 +21,6 @@ resource "oci_core_security_list" "app_security_list" {
         code = "4"
         }
     }
-
-    ingress_security_rules {
-    //allow all ICMP from VCN
-        protocol = "1"
-        source   = "0.0.0.0/0"
-
-        icmp_options {
-        type = "3"
-        }
-    }
-    
     dynamic "egress_security_rules" {
         for_each = var.egress_rule
         content {
