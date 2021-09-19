@@ -34,7 +34,7 @@ resource "oci_core_security_list" "app_security_list" {
         for_each = local.ingress_rule_all
         content {
             protocol = ingress_security_rules.value["protocol"]
-            source = ingress_security_rules.value["destination"]
+            source = ingress_security_rules.value["source"]
         }
     }
 
