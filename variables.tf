@@ -25,6 +25,10 @@ variable "egress_rule" {
     type = list(map(string))
 }
 
+variable "ingress_rule_all" {
+    type = list(map(string))
+}
+
 variable "tcp_ingress_rule" {
     type = list(map(string))
 }

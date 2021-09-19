@@ -29,6 +29,14 @@ resource "oci_core_security_list" "app_security_list" {
         }
     }
 
+    dynamic "ingress_security_rules_allow_all_port" {
+        for_each = var.ingress_rule_all
+        content {
+            protocol = ingress_security_rules_allow_all_port.value["protocol"]
+            destination = ingress_security_rules_allow_all_port.value["destination"]
+        }
+    }
+
     dynamic "ingress_security_rules" {
         for_each = local.ingress_tcp_rule #var.tcp_ingress_rule
         content {
