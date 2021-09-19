@@ -30,11 +30,11 @@ resource "oci_core_security_list" "app_security_list" {
         }
     }
 
-    dynamic "ingress_security_rules_allow_all_port" {
+    dynamic "ingress_security_rules" {
         for_each = local.ingress_rule_all
         content {
-            protocol = ingress_security_rules_allow_all_port.value["protocol"]
-            destination = ingress_security_rules_allow_all_port.value["destination"]
+            protocol = ingress_security_rules.value["protocol"]
+            destination = ingress_security_rules.value["destination"]
         }
     }
 
@@ -51,7 +51,8 @@ resource "oci_core_security_list" "app_security_list" {
         }
     }
     dynamic "ingress_security_rules" {
-        for_each = local.ingress_udp_rule         content {
+        for_each = local.ingress_udp_rule         
+        content {
             protocol = ingress_security_rules.value["protocol"]
             source = ingress_security_rules.value["source"]
             description = ingress_security_rules.value["description"]
