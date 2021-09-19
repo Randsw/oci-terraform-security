@@ -2,6 +2,7 @@
 locals {
   ingress_tcp_rule  = (var.tcp_ingress_rule == null) ? [] : var.tcp_ingress_rule
   ingress_udp_rule  = (var.udp_ingress_rule == null) ? [] : var.udp_ingress_rule
+  ingress_rule_all  = (var.ingress_rule_all == null) ? [] : var.ingress_rule_all
 }
 
 
@@ -30,7 +31,7 @@ resource "oci_core_security_list" "app_security_list" {
     }
 
     dynamic "ingress_security_rules_allow_all_port" {
-        for_each = var.ingress_rule_all
+        for_each = local.ingress_rule_all
         content {
             protocol = ingress_security_rules_allow_all_port.value["protocol"]
             destination = ingress_security_rules_allow_all_port.value["destination"]
@@ -38,7 +39,7 @@ resource "oci_core_security_list" "app_security_list" {
     }
 
     dynamic "ingress_security_rules" {
-        for_each = local.ingress_tcp_rule #var.tcp_ingress_rule
+        for_each = local.ingress_tcp_rule 
         content {
             protocol = ingress_security_rules.value["protocol"]
             source = ingress_security_rules.value["source"]
@@ -50,8 +51,7 @@ resource "oci_core_security_list" "app_security_list" {
         }
     }
     dynamic "ingress_security_rules" {
-        for_each = local.ingress_udp_rule #var.udp_ingress_rule
-        content {
+        for_each = local.ingress_udp_rule         content {
             protocol = ingress_security_rules.value["protocol"]
             source = ingress_security_rules.value["source"]
             description = ingress_security_rules.value["description"]
